@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/octopus/scripts/run",
     "prebuild": "node ./node_modules/octopus/scripts/run prebuild",
-    "build": "node ./bin/build.js",
+    "build": "node ./node_modules/octopus/scripts/buildDossier ./bin/build.json",
     "postbuild": "node ./node_modules/octopus/scripts/run postbuild",
     "update": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"

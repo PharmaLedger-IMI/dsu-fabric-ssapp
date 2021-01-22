@@ -1,0 +1,30 @@
+{
+  "dossier_seed": "./seed",
+  "domain": "default",
+  "bundles_path": "./../../privatesky/psknode/bundles",
+  "delete": [
+    "/"
+  ],
+  "folders": [
+    "code"
+  ],
+  "copy": [],
+  "mounts": [
+    {
+      "mount_point": "/cardinal",
+      "type": "seed",
+      "arguments": {
+        "path": "../cardinal/seed"
+      }
+    },
+    {
+      "mount_point": "/themes",
+      "type": "folder",
+      "arguments": {
+        "path": "../themes",
+        "seed": "seed",
+        "name": "$folder"
+      }
+    }
+  ]
+}

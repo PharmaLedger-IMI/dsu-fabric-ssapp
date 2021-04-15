@@ -85,6 +85,10 @@ function sortByProperty (property, direction){
     }
 }
 
+function sanitizeCode(code) {
+    return code.replace(/"/g, "\\\"");
+}
+
 
 export default {
     convertDateFromISOToGS1Format,
@@ -92,5 +96,6 @@ export default {
     convertDateTOGMTFormat,
     getFetchUrl,
     fetch: executeFetch,
-    sortByProperty
+    sortByProperty,
+    sanitizeCode
 }

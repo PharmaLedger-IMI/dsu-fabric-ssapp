@@ -12,7 +12,7 @@ export default class batchesController extends WebcController {
 
     this.storageService.filter(constants.BATCHES_STORAGE_TABLE, "__timestamp > 0", (err, batches) => {
       batches.forEach((batch) => {
-        batch.code = this.generateSerializationForBatch(batch, batch.defaultSerialNumber);
+        batch.code = utils.sanitizeCode(this.generateSerializationForBatch(batch, batch.defaultSerialNumber));
         if (batch.defaultRecalledSerialNumber) {
           batch.recalledCode = this.generateSerializationForBatch(batch, batch.defaultRecalledSerialNumber);
         }
@@ -21,7 +21,7 @@ export default class batchesController extends WebcController {
         }
         let wrongBatch = JSON.parse(JSON.stringify(batch));
         wrongBatch.defaultSerialNumber = "WRONG";
-        batch.wrongCode = this.generateSerializationForBatch(wrongBatch, wrongBatch.defaultSerialNumber);
+        batch.wrongCode = utils.sanitizeCode(this.generateSerializationForBatch(wrongBatch, wrongBatch.defaultSerialNumber));
         batch.formatedDate = utils.convertDateFromISOToGS1Format(batch.expiryForDisplay, "/");
         this.model.batches.push(batch);
       });

@@ -3,8 +3,7 @@ import Utils from "./Utils.js";
 export default class Batch {
   batchNumber;
   expiryForDisplay;
-  version = 1;
-  versionLabel = "";
+  version = 1; // keeps number of updates on batch
   serialNumbers = "";
   recalledSerialNumbers = "";
   decommissionedSerialNumbers = "";

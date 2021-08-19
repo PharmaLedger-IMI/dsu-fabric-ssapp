@@ -251,6 +251,8 @@ export default class ManageProductController extends WebcController {
     return true;
   }
 
+
+
   getProductAttachments(product, callback) {
     const resolver = require("opendsu").loadAPI("resolver");
     resolver.loadDSU(product.keySSI, async (err, productDSU) => {
@@ -265,14 +267,9 @@ export default class ManageProductController extends WebcController {
         await $$.promisify(productDSU.load)();
         let leaflets = await $$.promisify(productDSU.listFolders)("/leaflet");
         let smpcs = await $$.promisify(productDSU.listFolders)("/smpc");
-        for (const leafletLanguageCode of leaflets) {
-          let leafletFiles = await $$.promisify(productDSU.listFiles)("/leaflet/" + leafletLanguageCode);
-          languageTypeCards.push(LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.EXISTS, "leaflet", leafletLanguageCode, leafletFiles));
-        }
-        for (const smpcLanguageCode of smpcs) {
-          let smpcFiles = await $$.promisify(productDSU.listFiles)("/smpc/" + smpcLanguageCode);
-          languageTypeCards.push(LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.EXISTS, "smpc", smpcLanguageCode, smpcFiles));
-        }
+        await LeafletService.populateEpiCards(leaflets, "leaflet", productDSU, languageTypeCards);
+        await LeafletService.populateEpiCards(smpcs, "smpc", productDSU, languageTypeCards);
+
         let stat = await $$.promisify(productDSU.stat)(constants.PRODUCT_IMAGE_FILE)
         if (stat.type === "file") {
           let data = await $$.promisify(productDSU.readFile)(constants.PRODUCT_IMAGE_FILE);

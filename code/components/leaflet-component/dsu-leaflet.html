@@ -1,19 +1,25 @@
 <link href="components/leaflet-component/dsu-leaflet.css" rel="stylesheet">
 <webc-container controller="components/LeafletController" data-view-model="@">
     <div class="d-flex flex-column leaflet-container">
-        <ul data-for="@languageTypeCards">
-            <li class="d-flex flex-row overflow-auto">
+        <ul data-for="@languageTypeCards" class="d-flex flex-wrap">
+            <li class="d-flex flex-column overflow-auto position-relative">
                 <div class="epi-card d-flex flex-row p-3 mr-3 mb-2">
-                    <div class="form-label pr-3">{{@language.label}} {{@type.label}}</div>
-                    <div class="pr-3" slot="false">
-                        {{@files.length}} files
+                    <div class="epi-artwork" title="@artworkId">
+                        {{@artworkId}}</div>
+                    <div class="d-flex flex-column mt-2">
+                        <div class="form-label pr-3">{{@language.label}} {{@type.label}}</div>
+                        <div class="pr-3" slot="false">
+                            {{@files.length}} files
+                        </div>
                     </div>
                     <button class="delete-language">
                         <i class="fa fa-trash-o" data-tag="delete-language-leaflet">
                             <div hidden="hidden">{{@language.value}}/{{@type.value}}</div>
                         </i>
                     </button>
+
                 </div>
+
             </li>
             <li slot="no-data" style="list-style: none">
                 <i>No leaflets added yet</i>

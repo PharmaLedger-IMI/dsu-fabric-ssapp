@@ -4,7 +4,8 @@
 <main>
     <psk-select required value="@modalData.product.language" view-model="@modalData.languages"></psk-select>
     <psk-select required value="@modalData.product.type" view-model="@modalData.types"></psk-select>
-
+    <psk-label label="Artwork identifier" class="mt-2"></psk-label>
+    <input class="form-control mb-4" placeholder="Add artwork identifier (optional)" type="text" value="@modalData.artworkId"/>
     <psk-card class="language-leaflet-card">
         <div class="language-leaflet-card-header">
         </div>

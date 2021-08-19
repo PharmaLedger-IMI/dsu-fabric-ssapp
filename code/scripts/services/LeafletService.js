@@ -7,12 +7,13 @@ const LEAFLET_CARD_STATUS = {
   DELETE: "delete"
 }
 
-function generateCard(status, type, code, files) {
+function generateCard(status, type, code, files, artworkId) {
   let card = {
     status: status,
     type: {value: type},
     language: {value: code},
-    files: files
+    files: files,
+    artworkId: artworkId,
   };
   card.type.label = UploadTypes.getLanguage(type);
   card.language.label = Languages.getLanguage(code);
@@ -67,6 +68,7 @@ async function createEpiMessages(data) {
           language: card.language.value,
           messageType: card.type.value,
           senderId: data.username,
+          artworkId: card.artworkId
 
         }
         if (card.status === LEAFLET_CARD_STATUS.DELETE) {
@@ -93,8 +95,23 @@ async function createEpiMessages(data) {
   return cardMessages;
 }
 
+async function populateEpiCards(folderList, epiType, DSU, cardsArray) {
+  for (const languageCode of folderList) {
+    let leafletFiles = await $$.promisify(DSU.listFiles)(`/${epiType}/${languageCode}`);
+    let artworkId = {};
+    try {
+      artworkId = await $$.promisify(DSU.readFile)(`/${epiType}/${languageCode}/artworkId.json`);
+      artworkId = JSON.parse(artworkId);
+    } catch (err) {
+      artworkId.value = ""
+    }
+    cardsArray.push(generateCard(LEAFLET_CARD_STATUS.EXISTS, epiType, languageCode, leafletFiles, artworkId.value));
+  }
+}
+
 export default {
   generateCard,
   createEpiMessages,
+  populateEpiCards,
   LEAFLET_CARD_STATUS
 }

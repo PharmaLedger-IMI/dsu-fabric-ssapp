@@ -76,15 +76,12 @@
                         </div>
                     </div>
 
-
                     <div class="d-flex flex-row">
                         <div class="read-only-container pl-3">
-                            <div class="form-label">Batch version</div>
+                            <div class="form-label">Change number</div>
                             <input class="form-control" readonly type="text" value="@batch.version"/>
-
                         </div>
                     </div>
-
 
                     <div class="d-flex flex-row mt-5">
                         <psk-button data-tag="cancel" label="Cancel"></psk-button>
@@ -129,7 +126,10 @@
                             <psk-select required value="" view-model="@serial_update_options"></psk-select>
                         </div>
                     </div>
-                    <dsu-leaflet data-view-model="@"></dsu-leaflet>
+                    <psk-layout columns="1">
+                        <dsu-leaflet data-view-model="@"></dsu-leaflet>
+                    </psk-layout>
+
                 </div>
             </div>
 
@@ -187,8 +187,8 @@
         overflow: auto;
     }
 
-    psk-select .form-control,
-    psk-select .form-control:focus {
+    .cuspsk-select psk-select .form-control,
+    .cuspsk-select psk-select .form-control:focus {
         background: none;
         box-shadow: none;
         padding: 0px;
@@ -231,11 +231,11 @@
         padding: 9px 1em;
     }
 
-    psk-select label {
+    .cuspsk-select psk-select label {
         display: none;
     }
 
-    psk-select.default-select .form-group {
+    .cuspsk-select psk-select.default-select .form-group {
         margin: 0px;
         width: fit-content;
         min-width: 175px;
@@ -243,7 +243,7 @@
         left: -4px;
     }
 
-    psk-select.default-select select {
+    .cuspsk-select psk-select.default-select select {
         padding-right: 15px;
     }
 

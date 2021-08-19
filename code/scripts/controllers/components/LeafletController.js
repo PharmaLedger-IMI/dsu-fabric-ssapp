@@ -51,6 +51,7 @@ class LeafletController extends WebcController {
       denyButtonText: 'Cancel',
       languages: languages,
       types: types,
+      artworkId:"",
       product: {
         language: "en",
         type: "leaflet"
@@ -76,7 +77,7 @@ class LeafletController extends WebcController {
       }
       let selectedLanguage = Languages.getListAsVM().find(lang => lang.value === this.model.modalData.product.language);
       let selectedType = UploadTypes.getListAsVM().find(type => type.value === this.model.modalData.product.type);
-      let card = LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.NEW, selectedType.value, selectedLanguage.value, this.model.modalData.files);
+      let card = LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.NEW, selectedType.value, selectedLanguage.value, this.model.modalData.files, this.model.modalData.artworkId);
       this.model.languageTypeCards.push(card);
     }, () => {
       return

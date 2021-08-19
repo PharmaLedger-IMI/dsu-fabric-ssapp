@@ -1,4 +1,4 @@
-.leaflet-container{
+.leaflet-container {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
     border: 1.5px solid #E75222;
@@ -13,7 +13,7 @@
     border-radius: 4px;
 }
 
-.epi-card .delete-language{
+.epi-card .delete-language {
     top: 0;
     position: relative;
     background: none;
@@ -26,10 +26,21 @@
 
 }
 
-.epi-card .delete-language:focus{
+.epi-card .delete-language:focus {
     outline: none;
 }
 
-.epi-card .delete-language:hover{
+.epi-card .delete-language:hover {
     color: #000
+}
+
+.epi-artwork {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #005cbf;
 }

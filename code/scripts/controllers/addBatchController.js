@@ -22,8 +22,6 @@ export default class addBatchController extends WebcController {
     this.setModel({});
     this.storageService = getSharedStorage(this.DSUStorage);
     this.logService = new LogService(this.DSUStorage);
-
-    this.versionOffset = 1;
     this.model.languageTypeCards = [];
     holderService.ensureHolderInfo((err, holderInfo) => {
       if (!err) {
@@ -247,14 +245,8 @@ export default class addBatchController extends WebcController {
         await $$.promisify(batchDSU.load)();
         let leaflets = await $$.promisify(batchDSU.listFolders)("/leaflet");
         let smpcs = await $$.promisify(batchDSU.listFolders)("/smpc");
-        for (const leafletLanguageCode of leaflets) {
-          let leafletFiles = await $$.promisify(batchDSU.listFiles)("/leaflet/" + leafletLanguageCode);
-          languageTypeCards.push(LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.EXISTS, "leaflet", leafletLanguageCode, leafletFiles));
-        }
-        for (const smpcLanguageCode of smpcs) {
-          let smpcFiles = await $$.promisify(batchDSU.listFiles)("/smpc/" + smpcLanguageCode);
-          languageTypeCards.push(LeafletService.generateCard(LeafletService.LEAFLET_CARD_STATUS.EXISTS, "smpc", smpcLanguageCode, smpcFiles));
-        }
+        await LeafletService.populateEpiCards(leaflets, "leaflet", batchDSU, languageTypeCards);
+        await LeafletService.populateEpiCards(smpcs, "smpc", batchDSU, languageTypeCards);
         callback(undefined, {languageTypeCards: languageTypeCards});
       } catch (e) {
         return callback(e);
